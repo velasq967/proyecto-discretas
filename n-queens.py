@@ -7,7 +7,7 @@ Class: A
 import math
 
 def main():
-    global Queenj_coords
+    global Queens
     Continuar = True
     while Continuar:
         print("Selecciona lo que quieres hacer: \n" \
@@ -52,14 +52,14 @@ def main():
                         if End_case == True:
                             break
 
-                        if CoordenadaX >= 1 and CoordenadaY >= 1:
+                        if CoordenadaX >= 0 and CoordenadaY >= 0:
                             Queenj_coords = [CoordenadaX, CoordenadaY]
                             Queens.append(Queenj_coords)
                         print(Queens)
 
                     nQueens_result = nQueens(Queens)
                     print(nQueens_result)
-                    print(f"posibles configuraciones posibles para {len(Queenj_coords)} reinas:", configurations(N))
+                    print(f"posibles configuraciones posibles para {len(Queens)} reinas:", configurations(N, len(Queens)))
                     
 
                 else:
@@ -94,7 +94,7 @@ def nQueens(Lista_Coords):
                 print("La configuración no es válida")
                 return False
     
-            print("La configuración es válida")
+        print("La configuración es válida")
     
         return True
     
@@ -103,7 +103,7 @@ def nQueens(Lista_Coords):
 
 
 
-def configurations(N):
+def configurations(N, k):
     """
     funcion que evalua cuantas posibles configuraciones (subconjuntos) 
 
@@ -111,7 +111,8 @@ def configurations(N):
     N: numero entero que representa el tamaño del tablero
 
     """
-    config_totales = (math.factorial(N*N) / math.factorial(len(Queenj_coords))*math.factorial(N*N-len(Queenj_coords)))
+    n = N*N
+    config_totales = math.comb(n, k)
     return (config_totales)
     
 
