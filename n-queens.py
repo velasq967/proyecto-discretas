@@ -51,11 +51,14 @@ def main():
                         if End_case == True:
                             break
 <<<<<<< HEAD
+<<<<<<< HEAD
                         if CoordenadaX >= 1 and CoordenadaY >= 1:
                             Queenj_coords = [CoordenadaX, CoordenadaY]
                             Queens.append(Queenj_coords)
                         print(Queens)
 =======
+=======
+>>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
                         if CoordenadaX >= 0 and CoordenadaY >= 0:
                             queenj_coords = [CoordenadaX, CoordenadaY]
                             queens.append(queenj_coords)
@@ -64,6 +67,9 @@ def main():
                     nQueens_result = nQueens(queens)
                     print (nQueens_result)   
                     
+<<<<<<< HEAD
+>>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
+=======
 >>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
                 else:
                     print("input invalido, repita porfavor")
@@ -104,7 +110,11 @@ def nQueens(Lista_Coords):
     
     return True
 
+<<<<<<< HEAD
 def configurations(N):
+=======
+def configurations():
+>>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
     """
     funcion que evalua cuantas posibles configuraciones (subconjuntos) 
 
