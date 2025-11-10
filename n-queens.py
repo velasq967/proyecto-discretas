@@ -49,24 +49,52 @@ def main():
                         #Coordenadas = Coordenadas_input.split(", ")
                         if end_case == True:
                             break
-                        queenj_coords = [CoordenadaX, CoordenadaY]
-                        queens.append(queenj_coords)
+                        if CoordenadaX >= 0 and CoordenadaY >= 0:
+                            queenj_coords = [CoordenadaX, CoordenadaY]
+                            queens.append(queenj_coords)
                         print(queens)
+                        
+                    nQueens_result = nQueens(queens)
+                    print (nQueens_result)   
+                    
                 else:
                     print("input invalido, repita porfavor")
                        
                         
 
-def nQueens(Tablero, Queens, Lista_Coords):
-    #TODO
+def nQueens(Lista_Coords):
     """
     Funcion que determina si una configuracion de N reinas en un tablero N x N es valida
-
-    Parametros: 
-
+    Retorna True si ninguna reina amenaza a otra, False en caso contrario
+    
+    Parametros:
+    Lista_Coords: lista de coordenadas [x,y] de las reinas
     """
-
-    return False
+    reinas = [(coordenada[0], coordenada[1]) for coordenada in Lista_Coords]
+    
+    for i in range(len(reinas)):
+        x1, y1 = reinas[i]
+        for j in range(i + 1, len(reinas)):
+            x2, y2 = reinas[j]
+            
+            if x1 == x2:
+                print("La configuración no es válida")
+                return False
+            
+            if y1 == y2:
+                print("La configuración no es válida")
+                return False
+            
+            if abs(x1 - x2) == abs(y1 - y2):
+                print("La configuración no es válida")
+                return False
+    
+            print("La configuración es válida")
+    
+        return True
+    
+    
+    return True
 
 def configurations():
     """
