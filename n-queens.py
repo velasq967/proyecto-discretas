@@ -8,62 +8,39 @@ import math
 
 def main():
     global Queens
-    Continuar = True
-    while Continuar:
-        print("Selecciona lo que quieres hacer: \n" \
-        "1) Evaluar caso(s)\n"\
-        "2) Salir \n")
-        Opcion = int(input("ingresa un numero:"))
-        if Opcion == 2:
-            Continuar = False
-            break
-        elif Opcion == 1:
-            Valid = False
-            while Valid == False:
-                Casos = int(input("cuandos casos quieres evaluar? (1- 1000) \n"))
-                if Casos <= 1000:
-                    Valid = True
+    Casos = int(input())
+    for i in range(Casos):
+        N = int(input())
+        Queens = []
+        if N >= 1 and N <= 25:
+            for j in range(N):
+                Valid = False
+                End_case = False
+                while Valid == False:
+                    Coordenadas_input = input()
+                    Coordenadas = Coordenadas_input.split(", ")
+                    CoordenadaX = int(Coordenadas[0])
+                    CoordenadaY = int(Coordenadas[1])
+                    if (CoordenadaX <= N and CoordenadaX >= 0) and (CoordenadaY <= N and CoordenadaY >= 0):
+                        Valid = True
+                        break
+                    elif CoordenadaX == -1 and CoordenadaY == -1:
+                        Valid = True
+                        End_case = True
+                    else:
+                        print("este input no es valido, intente otra vez")
+                if End_case == True:
                     break
-                else:
-                    print("input no valido, digite de nuevo\n")
-            
+                if CoordenadaX >= 0 and CoordenadaY >= 0:
+                    Queenj_coords = [CoordenadaX, CoordenadaY]
+                    Queens.append(Queenj_coords)
 
-            for i in range(Casos):
-                N = int(input("ingresa el tamaño del tablero (recuerda colocar un numero entre el 1 y el 25)\n"))
-                Queens = []
-                if N >= 1 and N <= 25:
-                    for j in range(N):
-                        print("ingrese las coordenadas de la reina #", j+1 ,"\n(digite X: -1 y Y: -1 para terminar las reinas)\n")
-                        Valid = False
-                        End_case = False
-                        while Valid == False:
-                            CoordenadaX = int(input("ingresa la coordenada X: \n"))
-                            CoordenadaY = int(input("ingresa la coordenada Y: \n"))
-                            if (CoordenadaX <= N and CoordenadaX >= 0) and (CoordenadaY <= N and CoordenadaY >= 0):
-                                Valid = True
-                                break
-                            elif CoordenadaX == -1 and CoordenadaY == -1:
-                                Valid = True
-                                End_case = True
-                            else:
-                                print("este input no es valido, intente otra vez")
-                        #Coordenadas_input = int(input("Recuerda introducir dos numeros enteros separados por una coma y un espacio (ej: 1, 1)"))
-                        #Coordenadas = Coordenadas_input.split(", ")
-                        if End_case == True:
-                            break
-
-                        if CoordenadaX >= 0 and CoordenadaY >= 0:
-                            Queenj_coords = [CoordenadaX, CoordenadaY]
-                            Queens.append(Queenj_coords)
-                        print(Queens)
-
-                    nQueens_result = nQueens(Queens)
-                    print(nQueens_result)
-                    print(f"posibles configuraciones posibles para {len(Queens)} reinas:", configurations(N, len(Queens)))
-                    
-
-                else:
-                    print("input invalido, repita porfavor")
+            nQueens_result = nQueens(Queens)
+            print(f"case {i+1}:")
+            print(f"Satisfies {N} - Queen(s) problem? -> {nQueens_result}")
+            print(f"Posible configurations for {len(Queens)}-queen(s):", configurations(len(Queens)))
+        else:
+            print("input invalido, repita porfavor")
                        
                         
 
@@ -82,28 +59,12 @@ def nQueens(Lista_Coords):
         for j in range(i + 1, len(reinas)):
             x2, y2 = reinas[j]
             
-            if x1 == x2:
-                print("La configuración no es válida")
+            if x1 == x2 or y1 == y2 or abs(x1 - x2) == abs(y1 - y2):
                 return False
             
-            if y1 == y2:
-                print("La configuración no es válida")
-                return False
-            
-            if abs(x1 - x2) == abs(y1 - y2):
-                print("La configuración no es válida")
-                return False
-    
-        print("La configuración es válida")
-    
-        return True
-    
-    
     return True
 
-
-
-def configurations(N, k):
+def configurations(N):
     """
     funcion que evalua cuantas posibles configuraciones (subconjuntos) 
 
@@ -112,8 +73,28 @@ def configurations(N, k):
 
     """
     n = N*N
-    config_totales = math.comb(n, k)
-    return (config_totales)
+    config_totales = math.comb(n, N)
+    if config_totales > 10**10:
+        Config_totales = sn_format(config_totales)
+        return (Config_totales)
+    else:
+        return (config_totales)
     
+def sn_format(number):
+    """
+    Funcion que convierte un numero a notacion cientifica
+
+    Parametros:
+    number: numero entero o flotante a convertir
+    """
+    signo = "-" if number < 0 else ""
+    n_abs = abs(number)
+    e = math.floor(math.log10(n_abs))
+    mantisa_int = round(n_abs / 10**(e - 4)) # keeps first 5 digits
+    mantisa_str = str(mantisa_int)
+    if len(mantisa_str) > 5:
+        mantisa_str = mantisa_str[:5]
+        e += 1
+    return f"{signo}{mantisa_str[0]}.{mantisa_str[1:]} x 10^{e}"
 
 main()
