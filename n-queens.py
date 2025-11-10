@@ -7,6 +7,7 @@ Class: A
 import math
 
 def main():
+    global Queenj_coords
     Continuar = True
     while Continuar:
         print("Selecciona lo que quieres hacer: \n" \
@@ -50,27 +51,17 @@ def main():
                         #Coordenadas = Coordenadas_input.split(", ")
                         if End_case == True:
                             break
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                         if CoordenadaX >= 1 and CoordenadaY >= 1:
                             Queenj_coords = [CoordenadaX, CoordenadaY]
                             Queens.append(Queenj_coords)
                         print(Queens)
-=======
-=======
->>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
-                        if CoordenadaX >= 0 and CoordenadaY >= 0:
-                            queenj_coords = [CoordenadaX, CoordenadaY]
-                            queens.append(queenj_coords)
-                        print(queens)
-                        
-                    nQueens_result = nQueens(queens)
-                    print (nQueens_result)   
+
+                    nQueens_result = nQueens(Queens)
+                    print(nQueens_result)
+                    print(f"posibles configuraciones posibles para {len(Queenj_coords)} reinas:", configurations(N))
                     
-<<<<<<< HEAD
->>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
-=======
->>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
+
                 else:
                     print("input invalido, repita porfavor")
                        
@@ -110,11 +101,9 @@ def nQueens(Lista_Coords):
     
     return True
 
-<<<<<<< HEAD
+
+
 def configurations(N):
-=======
-def configurations():
->>>>>>> 3b832ad24cf5eef38bac06cccb0358f929e5d172
     """
     funcion que evalua cuantas posibles configuraciones (subconjuntos) 
 
@@ -122,7 +111,8 @@ def configurations():
     N: numero entero que representa el tamaño del tablero
 
     """
-    return (N**(2*N))
+    config_totales = (math.factorial(N*N) / math.factorial(len(Queenj_coords))*math.factorial(N*N-len(Queenj_coords)))
+    return (config_totales)
     
-print(configurations(8))
+
 main()
